@@ -49,6 +49,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                                 picker.bounds.height/2 + (hStr.bounds.height/2),
                                 hStr.bounds.width, hStr.bounds.height)
         self.view.addSubview(hStr)
+        
         let mStr = UILabel()
         mStr.text = "分"
         mStr.sizeToFit()
@@ -56,7 +57,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                                 picker.bounds.height/2 + mStr.bounds.height/2,
                                 mStr.bounds.width, mStr.bounds.height)
         self.view.addSubview(mStr)
-        
         
         let sStr = UILabel()
         sStr.text = "秒"
@@ -66,12 +66,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                                 sStr.bounds.width, sStr.bounds.height)
         self.view.addSubview(sStr)
         
-        
-        
     }
     
     var check = 0 //1の時
-    var check1 = 1 //1の時、止まっている
+    var check1 = 1 //1の時、止まっている 2の時、ストップを押された場合の挙動
     var check2 = 0 //1の時、数え上げ中なので、＋１０秒とか受け付けない
     var check3 = 0 //1の時、計算中なので、動かしても値変えさせない
     var timer: Timer?
@@ -94,8 +92,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     @IBAction func stopButtonTapped(_ sender: UIButton) {
-        if check1 == 0 {
-            check1 = 1
+        if check1 == 0 || check1 == 3{
+            check1 = 2
         }
     }
     
@@ -108,15 +106,26 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             check3 = 1
         check = 0
         }
+        else if check1 == 2 && currentSeconds != 0 {
+            start()
+            check3 = 1
+            check = 0
+        }
     }
     
     func start() {
-        currentSeconds = hour * 3600 + minite * 60 + second
+        if check1 != 2 {
+            currentSeconds = hour * 3600 + minite * 60 + second
+            label.text = String(format:"残り %02d時間 %02d分 %02d秒", hour, minite, second)
+        }
+        else { //stopからここにきている場合、hourとかは減ってないので、減った分の値を代入
+            label.text = String(format:"残り %02d時間 %02d分 %02d秒", currentSeconds / 3600, (currentSeconds % 3600) / 60, (currentSeconds % 3600) % 60)
+            check1 = 3
+        }
         print(currentSeconds)
 //        label.text = "\(currentSeconds / 60):\(currentSeconds % 60)"
         
-        label.text = String(format:"残り %02d時間 %02d分 %02d秒", hour, minite, second)
-        
+
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(ViewController.update), userInfo: nil, repeats: true);
         
@@ -130,13 +139,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 AudioServicesPlayAlertSound(soundID)
                 check3 = 0
                             label.text = String(format:"残り %02d時間 %02d分 %02d秒",hour, minite, second)
+                check1 == 1
             }
             check = 0
             check1 = 1
 //        label.text = String(format:" %02d分 %02d秒", currentSeconds / 60, currentSeconds % 60)
 //            label.text = "\(currentSeconds / 60):\(currentSeconds % 60)"
         }
-        else if check1 == 1 {
+        else if check1 == 1 || check1 == 2  {
         }
             
         else {
@@ -231,7 +241,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     func createDate (from: Int,to :Int) -> [String]{
         var data = [String]()
-        for num in 0...59 {
+        for num in from...to {
             data.append(String(num))
         }
         return data
