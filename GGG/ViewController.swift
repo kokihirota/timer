@@ -45,14 +45,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         let hStr = UILabel()
         hStr.text = "時間"
         hStr.sizeToFit()
-        hStr.frame = CGRectMake(picker.bounds.width/4 - hStr.bounds.width/2,
+        hStr.frame = CGRectMake(picker.bounds.width/4 + 3 * hStr.bounds.width/8,
                                 picker.bounds.height/2 + (hStr.bounds.height/2),
                                 hStr.bounds.width, hStr.bounds.height)
         self.view.addSubview(hStr)
         let mStr = UILabel()
         mStr.text = "分"
         mStr.sizeToFit()
-        mStr.frame = CGRectMake(picker.bounds.width/2 + 2/3 * mStr.bounds.width,
+        mStr.frame = CGRectMake(picker.bounds.width/2 + 19 * mStr.bounds.width/16,
                                 picker.bounds.height/2 + mStr.bounds.height/2,
                                 mStr.bounds.width, mStr.bounds.height)
         self.view.addSubview(mStr)
@@ -61,7 +61,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         let sStr = UILabel()
         sStr.text = "秒"
         sStr.sizeToFit()
-        sStr.frame = CGRectMake(3 * picker.bounds.width/4 + sStr.bounds.width,
+        sStr.frame = CGRectMake(3 * picker.bounds.width/4 + 7 * sStr.bounds.width/4,
                                 picker.bounds.height/2 + (sStr.bounds.height/2),
                                 sStr.bounds.width, sStr.bounds.height)
         self.view.addSubview(sStr)
