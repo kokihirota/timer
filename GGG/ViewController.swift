@@ -53,7 +53,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
 
         hStr.text = "時間"
         hStr.sizeToFit()
-        hStr.frame = CGRectMake(picker.bounds.width/4 + 9 * hStr.bounds.width/16,
+//        hStr.frame = CGRectMake(picker.bounds.width/4 + 9 * hStr.bounds.width/16,
+//                                picker.bounds.height/2 + (hStr.bounds.height/2) + barButton.bounds.height,
+//                                hStr.bounds.width, hStr.bounds.height)
+//
+        
+        print(19 * self.view.bounds.width/64)
+            hStr.frame = CGRectMake(39 * self.view.bounds.width/128 ,
                                 picker.bounds.height/2 + (hStr.bounds.height/2) + barButton.bounds.height,
                                 hStr.bounds.width, hStr.bounds.height)
         self.view.addSubview(hStr)
@@ -61,20 +67,31 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
 //        let mStr = UILabel()
         mStr.text = "分"
         mStr.sizeToFit()
-        mStr.frame = CGRectMake(picker.bounds.width/2 + 25 * mStr.bounds.width/16,
+//        mStr.frame = CGRectMake(picker.bounds.width/2 + 25 * mStr.bounds.width/16,
+//                                picker.bounds.height/2 + mStr.bounds.height/2 + barButton.bounds.height,
+//                                mStr.bounds.width, mStr.bounds.height)
+//        
+        mStr.frame = CGRectMake(18 * self.view.bounds.width/32 ,
                                 picker.bounds.height/2 + mStr.bounds.height/2 + barButton.bounds.height,
                                 mStr.bounds.width, mStr.bounds.height)
+        
+        
+        
         self.view.addSubview(mStr)
         
+        print(3 * picker.bounds.width/4 + 8 * sStr.bounds.width/4)
 //        let sStr = UILabel()
         sStr.text = "秒"
         sStr.sizeToFit()
-        sStr.frame = CGRectMake(3 * picker.bounds.width/4 + 8 * sStr.bounds.width/4,
+//        sStr.frame = CGRectMake(3 * picker.bounds.width/4 + 8 * sStr.bounds.width/4,
+//                                picker.bounds.height/2 + (sStr.bounds.height/2) + barButton.bounds.height,
+//                                sStr.bounds.width, sStr.bounds.height)
+        sStr.frame = CGRectMake(53 * self.view.bounds.width/64,
                                 picker.bounds.height/2 + (sStr.bounds.height/2) + barButton.bounds.height,
                                 sStr.bounds.width, sStr.bounds.height)
         self.view.addSubview(sStr)
-
-
+        picker.selectRow(1, inComponent: 2, animated: true)
+        currentSeconds = 1
     }
 
  
@@ -83,10 +100,11 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var check2 = 0 //1の時、数え上げ中なので、＋１０秒とか受け付けない
     var check3 = 0 //1の時、計算中なので、動かしても値変えさせない
     var timer: Timer?
-    var currentSeconds = 0
+    var currentSeconds = 1
     var second = 0
     var minite = 0
     var hour = 0
+    var firstStart = 0 // 起動後、コロコロ動かさずにSTART押された時の対策。
 //    var soundID1: SystemSoundID = AppDelegate.soundID
     
     
@@ -105,7 +123,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         check3 = 0
         label.text = String(format:"%02d:%02d:%02d", hour, minite, second)
         currentSeconds = hour * 3600 + minite * 60 + second
-        startButton.setTitle("Start", for: UIControlState.normal)
+        startButton.setTitle("START", for: UIControlState.normal)
     }
     
 //    
@@ -125,30 +143,35 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     @IBAction func startButtonTapped(_ sender: UIButton) { //とりあえず、数え上げはしない
 
+        if firstStart == 0 {
+            second = 1
+            
+        }
 
         if check1 == 1 && currentSeconds != 0 {
             check1 = 0
             start()
             check3 = 1
             check = 0
-            startButton.setTitle("Stop", for: UIControlState.normal)
+            startButton.setTitle("STOP", for: UIControlState.normal)
 
         }
         else if check1 == 2 && currentSeconds != 0 {
             start()
             check3 = 1
             check = 0
-            startButton.setTitle("Stop", for: UIControlState.normal)
+            startButton.setTitle("STOP", for: UIControlState.normal)
         }
           else if check1 == 0 || check1 == 3{
             
             check1 = 2
-            startButton.setTitle("Start", for: UIControlState.normal)
+            startButton.setTitle("START", for: UIControlState.normal)
             }
         
     }
     
     func start() {
+        label.alpha = 1.0
         picker.isHidden = true
         hStr.isHidden = true
         mStr.isHidden = true
@@ -176,7 +199,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             if check == 0 {
                 
                 AudioServicesPlayAlertSound(SystemSoundID(appDelegate.soundID!))
-                startButton.setTitle("Start", for: UIControlState.normal)
+                startButton.setTitle("START", for: UIControlState.normal)
                 hStr.isHidden = false
                 mStr.isHidden = false
                 sStr.isHidden = false
@@ -191,6 +214,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             check1 = 1
         }
         else if check1 == 1 || check1 == 2  {
+            if label.alpha == 1.0 {
+                label.alpha = 0.3
+            }
+            else {
+                label.alpha = 1.0
+            }
+
         }
             
         else {
@@ -258,6 +288,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 
+        firstStart = 1
+        
         if component == 0 {
            row3 = row
         }
@@ -274,6 +306,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
       
         if check3 == 0 {
         currentSeconds = row3 * 3600 + row2 * 60 + row1
+            if currentSeconds == 0 {
+                second = 1 //00:00:00にはならない
+                picker.selectRow(1, inComponent: 2, animated: true)
+            }
         label.text = String(format:"%02d:%02d:%02d", hour, minite, second)
         }
     }
@@ -289,8 +325,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         }
         return data
     }
+    
 
-//    // 表示/非表示を切り替え
+    //    // 表示/非表示を切り替え
 //    func changeVisible(visible: Bool) {
 //        if visible {
 //            .hidden = false
@@ -299,8 +336,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
 //        }
 //    }
     
-    func setLabel() {
-        
-    }
+//    func setLabel() {
+//        
+//    }
     
 }
