@@ -5,36 +5,42 @@
 //  Created by s15ti050 on 2017/09/08.
 //  Copyright © 2017年 s15ti050. All rights reserved.
 //
-
-//        測定中に時間をコロコロすると、値が変わっちゃう
-
+import Foundation
 import UIKit
 import AudioToolbox
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource ,UITextFieldDelegate{
     
-    // 選択肢
-//    var dataList = ["ss"]
-//    var dataList2 = ["xx"]
-    
-//    var dataList = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
+
+    @IBAction func Button(_ sender: UIBarButtonItem) {
+//    }
+//    @IBAction func onTouchBootMenuButton(_ sender: UIBarButtonItem) {
+        guard let rootViewController = rootViewController() else { return }
+        rootViewController.presentMenuViewController()
+        
+    }
 //    
+//    @IBAction func onTouchCloseMenuButton(sender: UIButton) {
+//        guard let rootViewController = rootViewController() else {return }
+//        rootViewController.dismissMenuViewController()
+//    }
 //    
-//    var dataList2 = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59"]
-//    var dataList3 = ["0","1","2","3","4","5","6 ","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59"]
-//    
-    
     var dataList = [""]
     var dataList2 = [""]
     var dataList3 = [""]
-    
-    var ee = [Int]()
 
     @IBOutlet weak var picker: UIPickerView!
+    @IBOutlet weak var barButton: UIToolbar!
+    
+    let hStr = UILabel()
+    let mStr = UILabel()
+    let sStr = UILabel()
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         dataList = createDate(from: 0, to: 23)
         dataList2 = createDate(from: 0, to: 59)
         dataList3 = createDate(from: 0, to: 59)
@@ -42,32 +48,34 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         picker.delegate = self
         picker.dataSource = self
         
-        let hStr = UILabel()
+
         hStr.text = "時間"
         hStr.sizeToFit()
-        hStr.frame = CGRectMake(picker.bounds.width/4 + 3 * hStr.bounds.width/8,
-                                picker.bounds.height/2 + (hStr.bounds.height/2),
+        hStr.frame = CGRectMake(picker.bounds.width/4 + 9 * hStr.bounds.width/16,
+                                picker.bounds.height/2 + (hStr.bounds.height/2) + barButton.bounds.height,
                                 hStr.bounds.width, hStr.bounds.height)
         self.view.addSubview(hStr)
         
-        let mStr = UILabel()
+//        let mStr = UILabel()
         mStr.text = "分"
         mStr.sizeToFit()
-        mStr.frame = CGRectMake(picker.bounds.width/2 + 19 * mStr.bounds.width/16,
-                                picker.bounds.height/2 + mStr.bounds.height/2,
+        mStr.frame = CGRectMake(picker.bounds.width/2 + 25 * mStr.bounds.width/16,
+                                picker.bounds.height/2 + mStr.bounds.height/2 + barButton.bounds.height,
                                 mStr.bounds.width, mStr.bounds.height)
         self.view.addSubview(mStr)
         
-        let sStr = UILabel()
+//        let sStr = UILabel()
         sStr.text = "秒"
         sStr.sizeToFit()
-        sStr.frame = CGRectMake(3 * picker.bounds.width/4 + 7 * sStr.bounds.width/4,
-                                picker.bounds.height/2 + (sStr.bounds.height/2),
+        sStr.frame = CGRectMake(3 * picker.bounds.width/4 + 8 * sStr.bounds.width/4,
+                                picker.bounds.height/2 + (sStr.bounds.height/2) + barButton.bounds.height,
                                 sStr.bounds.width, sStr.bounds.height)
         self.view.addSubview(sStr)
-        
+
+
     }
-    
+
+ 
     var check = 0 //1の時
     var check1 = 1 //1の時、止まっている 2の時、ストップを押された場合の挙動
     var check2 = 0 //1の時、数え上げ中なので、＋１０秒とか受け付けない
@@ -77,82 +85,109 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var second = 0
     var minite = 0
     var hour = 0
+//    var soundID1: SystemSoundID = AppDelegate.soundID
+    
+    
     
     @IBAction func resetButtonTapped(_ sender: UIButton) {
+        picker.isHidden = false
+        hStr.isHidden = false
+        mStr.isHidden = false
+        sStr.isHidden = false
+        
         currentSeconds = 0
-//        label.text = "\(currentSeconds)"
-//                label.text = String(format:" %02d分 %02d秒", 0, 0)
+
         check = 1
         check1 = 1
         check3 = 0
-                    label.text = String(format:"残り %02d時間 %02d分 %02d秒", hour, minite, second)
+        label.text = String(format:"%02d:%02d:%02d", hour, minite, second)
         currentSeconds = hour * 3600 + minite * 60 + second
-        
+        startButton.setTitle("Start", for: UIControlState.normal)
     }
     
-    
-    @IBAction func stopButtonTapped(_ sender: UIButton) {
-        if check1 == 0 || check1 == 3{
-            check1 = 2
-        }
-    }
-    
-    
+//    
+//    @IBAction func stopButtonTapped(_ sender: UIButton) {
+//        if check1 == 0 || check1 == 3{
+//            check1 = 2
+//        startButton.setTitle("Start", for: UIControlState.normal)
+//        }
+// 
+//    }
+
     @IBOutlet weak var label: UILabel!
+    
+//    
+//    @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var startButton: UIButton!
+    
     @IBAction func startButtonTapped(_ sender: UIButton) { //とりあえず、数え上げはしない
+
+
         if check1 == 1 && currentSeconds != 0 {
             check1 = 0
             start()
             check3 = 1
-        check = 0
+            check = 0
+            startButton.setTitle("Stop", for: UIControlState.normal)
+
         }
         else if check1 == 2 && currentSeconds != 0 {
             start()
             check3 = 1
             check = 0
+            startButton.setTitle("Stop", for: UIControlState.normal)
         }
+          else if check1 == 0 || check1 == 3{
+            
+            check1 = 2
+            startButton.setTitle("Start", for: UIControlState.normal)
+            }
+        
     }
     
     func start() {
+        picker.isHidden = true
+        hStr.isHidden = true
+        mStr.isHidden = true
+        sStr.isHidden = true
         if check1 != 2 {
             currentSeconds = hour * 3600 + minite * 60 + second
-            label.text = String(format:"残り %02d時間 %02d分 %02d秒", hour, minite, second)
+            label.text = String(format:"%02d:%02d:%02d", hour, minite, second)
         }
         else { //stopからここにきている場合、hourとかは減ってないので、減った分の値を代入
-            label.text = String(format:"残り %02d時間 %02d分 %02d秒", currentSeconds / 3600, (currentSeconds % 3600) / 60, (currentSeconds % 3600) % 60)
+            label.text = String(format:"%02d:%02d:%02d", currentSeconds / 3600, (currentSeconds % 3600) / 60, (currentSeconds % 3600) % 60)
             check1 = 3
         }
         print(currentSeconds)
-//        label.text = "\(currentSeconds / 60):\(currentSeconds % 60)"
         
-
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(ViewController.update), userInfo: nil, repeats: true);
-        
     }
+    
+    
     
     func update() {
         if currentSeconds == 0 {
             timer?.invalidate()
-            let soundID: SystemSoundID = 1005
             if check == 0 {
-                AudioServicesPlayAlertSound(soundID)
+                
+                AudioServicesPlayAlertSound(SystemSoundID(appDelegate.soundID!))
+                startButton.setTitle("Start", for: UIControlState.normal)
+                picker.isHidden = false
                 check3 = 0
-                            label.text = String(format:"残り %02d時間 %02d分 %02d秒",hour, minite, second)
-                check1 == 1
+                label.text = String(format:"%02d:%02d:%02d",hour, minite, second)
+                check1 = 1
+                currentSeconds = hour * 3600 + minite * 60 + second
             }
             check = 0
             check1 = 1
-//        label.text = String(format:" %02d分 %02d秒", currentSeconds / 60, currentSeconds % 60)
-//            label.text = "\(currentSeconds / 60):\(currentSeconds % 60)"
         }
         else if check1 == 1 || check1 == 2  {
         }
             
         else {
             currentSeconds -= 1
-//            label.text = "\(currentSeconds / 60):\(currentSeconds % 60)"
-                    label.text = String(format:"残り %02d時間 %02d分 %02d秒", currentSeconds / 3600, (currentSeconds % 3600) / 60, (currentSeconds % 3600) % 60)
+            label.text = String(format:"%02d:%02d:%02d", currentSeconds / 3600, (currentSeconds % 3600) / 60, (currentSeconds % 3600) % 60)
             print(currentSeconds)
         }
     }
@@ -209,7 +244,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     
-            var row1 = Int()
+    var row1 = Int()
     var row2 = Int()
     var row3 = Int()
     
@@ -231,7 +266,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
       
         if check3 == 0 {
         currentSeconds = row3 * 3600 + row2 * 60 + row1
-        label.text = String(format:"残り %02d時間 %02d分 %02d秒", hour, minite, second)
+        label.text = String(format:"%02d:%02d:%02d", hour, minite, second)
         }
     }
     
@@ -247,4 +282,17 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         return data
     }
 
+//    // 表示/非表示を切り替え
+//    func changeVisible(visible: Bool) {
+//        if visible {
+//            .hidden = false
+//        } else {
+//            label.hidden = true
+//        }
+//    }
+    
+    func setLabel() {
+        
+    }
+    
 }
