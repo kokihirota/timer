@@ -41,6 +41,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        label.isHidden = true
+        
         dataList = createDate(from: 0, to: 23)
         dataList2 = createDate(from: 0, to: 59)
         dataList3 = createDate(from: 0, to: 59)
@@ -94,6 +96,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         hStr.isHidden = false
         mStr.isHidden = false
         sStr.isHidden = false
+        label.isHidden = true
         
         currentSeconds = 0
 
@@ -150,6 +153,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         hStr.isHidden = true
         mStr.isHidden = true
         sStr.isHidden = true
+        label.isHidden = false
         if check1 != 2 {
             currentSeconds = hour * 3600 + minite * 60 + second
             label.text = String(format:"%02d:%02d:%02d", hour, minite, second)
@@ -173,7 +177,11 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 
                 AudioServicesPlayAlertSound(SystemSoundID(appDelegate.soundID!))
                 startButton.setTitle("Start", for: UIControlState.normal)
+                hStr.isHidden = false
+                mStr.isHidden = false
+                sStr.isHidden = false
                 picker.isHidden = false
+                label.isHidden = true
                 check3 = 0
                 label.text = String(format:"%02d:%02d:%02d",hour, minite, second)
                 check1 = 1

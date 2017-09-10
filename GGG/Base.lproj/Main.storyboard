@@ -13,7 +13,6 @@
         <!--Root View Controller-->
         <scene sceneID="LZo-HP-ac6">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xNf-tM-FL9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="jVs-hR-IpQ" customClass="RootViewController" customModule="GGG" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="d8F-2G-gcr"/>
@@ -25,6 +24,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xNf-tM-FL9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-250" y="-54"/>
         </scene>
@@ -56,16 +56,10 @@
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </pickerView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8mW-1I-k0F">
-                                <rect key="frame" x="16" y="314" width="343" height="98"/>
+                                <rect key="frame" x="16" y="314" width="343" height="55"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUJ-SZ-Sds">
-                                        <rect key="frame" x="95.5" y="0.0" width="152.5" height="43"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zDi-72-xAg">
-                                        <rect key="frame" x="118" y="43" width="107" height="55"/>
+                                        <rect key="frame" x="118" y="0.0" width="107" height="55"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                         <state key="normal" title="RESET"/>
                                         <connections>
@@ -82,17 +76,26 @@
                                     <action selector="startButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JFH-PA-6lt"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUJ-SZ-Sds">
+                                <rect key="frame" x="36" y="147" width="303" height="50.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="SDc-Ue-IXc" secondAttribute="trailing" constant="20" id="0Jc-A0-SUd"/>
                             <constraint firstItem="w6X-NY-Rd1" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" id="5a1-CO-JLu"/>
+                            <constraint firstItem="eUJ-SZ-Sds" firstAttribute="top" secondItem="w6X-NY-Rd1" secondAttribute="bottom" constant="83" id="9t3-JT-TAn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8mW-1I-k0F" secondAttribute="trailing" id="9xE-Dt-vhp"/>
                             <constraint firstItem="SDc-Ue-IXc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="SEw-rJ-XJS"/>
                             <constraint firstItem="w6X-NY-Rd1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dG9-n3-Vlf"/>
                             <constraint firstItem="8mW-1I-k0F" firstAttribute="top" secondItem="w6X-NY-Rd1" secondAttribute="bottom" constant="250" id="k8j-Xe-lCY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="eUJ-SZ-Sds" secondAttribute="trailing" constant="20" id="kSc-5y-SoJ"/>
                             <constraint firstItem="8mW-1I-k0F" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ng4-fa-IIx"/>
                             <constraint firstItem="SDc-Ue-IXc" firstAttribute="top" secondItem="w6X-NY-Rd1" secondAttribute="bottom" id="qb3-0L-7hb"/>
+                            <constraint firstItem="eUJ-SZ-Sds" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="vBe-Fb-SgZ"/>
                             <constraint firstAttribute="trailing" secondItem="w6X-NY-Rd1" secondAttribute="trailing" id="wFd-wL-vmb"/>
                         </constraints>
                     </view>

@@ -102,7 +102,7 @@
 				TargetAttributes = {
 					724279BF1F62CCB50067BDB3 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = DR2X339AF8;
+						DevelopmentTeam = U48PC58DNS;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -269,10 +269,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = DR2X339AF8;
+				DEVELOPMENT_TEAM = U48PC58DNS;
 				INFOPLIST_FILE = GGG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = s15ti050k;
+				PRODUCT_BUNDLE_IDENTIFIER = s15ti050kjj;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -282,10 +282,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = DR2X339AF8;
+				DEVELOPMENT_TEAM = U48PC58DNS;
 				INFOPLIST_FILE = GGG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = s15ti050k;
+				PRODUCT_BUNDLE_IDENTIFIER = s15ti050kjj;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
