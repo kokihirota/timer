@@ -143,9 +143,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     @IBAction func startButtonTapped(_ sender: UIButton) { //とりあえず、数え上げはしない
 
+        
         if firstStart == 0 {
+            if minite != 0 || hour != 0 {
+                firstStart = 1
+            }
             second = 1
-            
+            currentSeconds = 1
         }
 
         if check1 == 1 && currentSeconds != 0 {
@@ -287,8 +291,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var row3 = Int()
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-
-        firstStart = 1
         
         if component == 0 {
            row3 = row
@@ -303,6 +305,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         second = row1
         minite = row2
         hour = row3
+        
+
       
         if check3 == 0 {
         currentSeconds = row3 * 3600 + row2 * 60 + row1

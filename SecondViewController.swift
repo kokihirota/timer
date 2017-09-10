@@ -38,11 +38,13 @@ print("aaa")
     @IBAction func startButtonTapped(_ sender: UIButton) {
         if !countnow {
             startButton.setTitle("STOP", for: UIControlState.normal)
+            resetButton.setTitle("LAP", for: UIControlState.normal)
             countnow = true
             start()
         }
         else {
             startButton.setTitle("START", for: UIControlState.normal)
+            resetButton.setTitle("RESET", for: UIControlState.normal)
             stop()
         }
     }
@@ -66,10 +68,43 @@ print("aaa")
     }
     
     @IBAction func resetButtonTapped(_ sender: UIButton) {
-    countnow = false
+        
+        if !countnow {
         currentSeconds = 0.0
         Label.text = "\(String(format: "%02d:%02d:%02d",Int(currentSeconds) / 60 ,Int(currentSeconds) % 60, Int(currentSeconds * 100) % 100))"
         startButton.setTitle("START", for: UIControlState.normal)
+            labelcheck = 1
+            label1.text = ""
+            label2.text = ""
+            label3.text = ""
+        }
+        else {
+            lapping(currentSeconds)
+        }
+    }
+    
+    @IBOutlet weak var label1: UILabel!
+    
+    @IBOutlet weak var label2: UILabel!
+    
+    @IBOutlet weak var label3: UILabel!
+    
+    var labelcheck = 1
+    
+    func  lapping(_ currentseconds: Double ) {
+        if labelcheck % 3 == 1 {
+            label1.text = "lap : \(labelcheck)  \(String(format: "%02d:%02d:%02d",Int(currentSeconds) / 60 ,Int(currentSeconds) % 60, Int(currentSeconds * 100) % 100))"
+            labelcheck += 1
+        }
+        else if labelcheck % 3 == 2 {
+            label2.text = "lap : \(labelcheck)  \(String(format: "%02d:%02d:%02d",Int(currentSeconds) / 60 ,Int(currentSeconds) % 60, Int(currentSeconds * 100) % 100))"
+            labelcheck += 1
+        }
+        else {
+            label3.text = "lap : \(labelcheck)  \(String(format: "%02d:%02d:%02d",Int(currentSeconds) / 60 ,Int(currentSeconds) % 60, Int(currentSeconds * 100) % 100))"
+            labelcheck += 1
+        }
+        
     }
     
     /*
