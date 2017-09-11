@@ -12,7 +12,11 @@ class SecondViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-print("aaa")
+//        startButton.layer.borderWidth = 2.0
+//        startButton.layer.borderColor = UIColor.red.cgColor
+//        startButton.frame.size.height = startButton.frame.width // ボタンを正方形にする
+//        startButton.layer.cornerRadius = startButton.frame.width
+//        
         // Do any additional setup after loading the view.
     }
 
@@ -54,8 +58,8 @@ print("aaa")
             currentSeconds += 0.01
             
             Label.text = "\(String(format: "%02d:%02d:%02d",Int(currentSeconds) / 60 ,Int(currentSeconds) % 60, Int(currentSeconds * 100) % 100))"
-            }
         }
+    }
     
     func start() {
                 timer?.invalidate()
@@ -93,16 +97,42 @@ print("aaa")
     
     func  lapping(_ currentseconds: Double ) {
         if labelcheck % 3 == 1 {
-            label1.text = "lap : \(labelcheck)  \(String(format: "%02d:%02d:%02d",Int(currentSeconds) / 60 ,Int(currentSeconds) % 60, Int(currentSeconds * 100) % 100))"
-            labelcheck += 1
+            if labelcheck < 4 {
+                label1.text = "LAP : \(labelcheck)  \(String(format: "%02d:%02d:%02d",Int(currentSeconds) / 60 ,Int(currentSeconds) % 60, Int(currentSeconds * 100) % 100))"
+                labelcheck += 1
+            }
+            else {
+                label1.text = label2.text
+                label2.text = label3.text
+                label3.text = "LAP : \(labelcheck)  \(String(format: "%02d:%02d:%02d",Int(currentSeconds) / 60 ,Int(currentSeconds) % 60, Int(currentSeconds * 100) % 100))"
+                labelcheck += 1
+            }
         }
+            
         else if labelcheck % 3 == 2 {
-            label2.text = "lap : \(labelcheck)  \(String(format: "%02d:%02d:%02d",Int(currentSeconds) / 60 ,Int(currentSeconds) % 60, Int(currentSeconds * 100) % 100))"
-            labelcheck += 1
+            if labelcheck < 4 {
+                label2.text = "LAP : \(labelcheck)  \(String(format: "%02d:%02d:%02d",Int(currentSeconds) / 60 ,Int(currentSeconds) % 60, Int(currentSeconds * 100) % 100))"
+                labelcheck += 1
+            }
+            else {
+                label1.text = label2.text
+                label2.text = label3.text
+                label3.text = "LAP : \(labelcheck)  \(String(format: "%02d:%02d:%02d",Int(currentSeconds) / 60 ,Int(currentSeconds) % 60, Int(currentSeconds * 100) % 100))"
+                labelcheck += 1
+            }
+            
         }
         else {
-            label3.text = "lap : \(labelcheck)  \(String(format: "%02d:%02d:%02d",Int(currentSeconds) / 60 ,Int(currentSeconds) % 60, Int(currentSeconds * 100) % 100))"
-            labelcheck += 1
+            if labelcheck < 4 {
+                label3.text = "LAP : \(labelcheck)  \(String(format: "%02d:%02d:%02d",Int(currentSeconds) / 60 ,Int(currentSeconds) % 60, Int(currentSeconds * 100) % 100))"
+                labelcheck += 1
+            }
+            else {
+                label1.text = label2.text
+                label2.text = label3.text
+                label3.text = "LAP : \(labelcheck)  \(String(format: "%02d:%02d:%02d",Int(currentSeconds) / 60 ,Int(currentSeconds) % 60, Int(currentSeconds * 100) % 100))"
+                labelcheck += 1
+            }
         }
         
     }

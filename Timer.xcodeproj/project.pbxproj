@@ -110,7 +110,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 724279BB1F62CCB50067BDB3 /* Build configuration list for PBXProject "GGG" */;
+			buildConfigurationList = 724279BB1F62CCB50067BDB3 /* Build configuration list for PBXProject "Timer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -298,7 +298,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		724279BB1F62CCB50067BDB3 /* Build configuration list for PBXProject "GGG" */ = {
+		724279BB1F62CCB50067BDB3 /* Build configuration list for PBXProject "Timer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				724279D01F62CCB50067BDB3 /* Debug */,

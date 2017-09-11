@@ -313,6 +313,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             if currentSeconds == 0 {
                 second = 1 //00:00:00にはならない
                 picker.selectRow(1, inComponent: 2, animated: true)
+                currentSeconds = 1
             }
         label.text = String(format:"%02d:%02d:%02d", hour, minite, second)
         }

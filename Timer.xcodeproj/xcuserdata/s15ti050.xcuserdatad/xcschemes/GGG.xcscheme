@@ -17,7 +17,7 @@
                BlueprintIdentifier = "724279BF1F62CCB50067BDB3"
                BuildableName = "GGG.app"
                BlueprintName = "GGG"
-               ReferencedContainer = "container:GGG.xcodeproj">
+               ReferencedContainer = "container:Timer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "724279BF1F62CCB50067BDB3"
             BuildableName = "GGG.app"
             BlueprintName = "GGG"
-            ReferencedContainer = "container:GGG.xcodeproj">
+            ReferencedContainer = "container:Timer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -58,7 +58,7 @@
             BlueprintIdentifier = "724279BF1F62CCB50067BDB3"
             BuildableName = "GGG.app"
             BlueprintName = "GGG"
-            ReferencedContainer = "container:GGG.xcodeproj">
+            ReferencedContainer = "container:Timer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -77,7 +77,7 @@
             BlueprintIdentifier = "724279BF1F62CCB50067BDB3"
             BuildableName = "GGG.app"
             BlueprintName = "GGG"
-            ReferencedContainer = "container:GGG.xcodeproj">
+            ReferencedContainer = "container:Timer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
